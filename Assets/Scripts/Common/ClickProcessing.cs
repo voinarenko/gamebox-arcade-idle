@@ -16,7 +16,12 @@ namespace Assets.Scripts.Common
             if (!Input.GetMouseButtonDown(0)) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(camRay, out var hitInfo)) return;
-            if (hitInfo.transform.CompareTag(_game.Constants.GroundTag)) _game.Player.Move();
+            if (hitInfo.transform.CompareTag(_game.Constants.GroundTag)) _game.Move(_game.MousePosition);
+            if (hitInfo.transform.CompareTag(_game.Constants.TreeTag) || hitInfo.transform.CompareTag(_game.Constants.RockTag))
+            {
+                _game.MoveToCollect = true;
+                _game.Move(hitInfo.transform.position);
+            }
         }
     }
 }

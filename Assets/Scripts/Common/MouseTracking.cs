@@ -2,6 +2,9 @@
 
 namespace Assets.Scripts.Common
 {
+    /// <summary>
+    /// Отслеживание положения мыши
+    /// </summary>
     public class MouseTracking : MonoBehaviour
     {
         private Game _game; // игра

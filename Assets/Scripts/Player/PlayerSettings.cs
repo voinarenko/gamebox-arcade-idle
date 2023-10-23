@@ -16,5 +16,9 @@ namespace Assets.Scripts.Player
         /// скорость вращения игрока
         /// </summary>
         public float RotationSpeed; 
+
+        // анимация
+        public string PlayerWalkAnimLabel = "Walking";
+        public string PlayerCollectAnimLabel = "Collecting";
     }
 }

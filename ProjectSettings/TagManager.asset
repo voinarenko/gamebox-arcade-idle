@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - Fruit
+  - Tree
+  - Rock
+  - Objects
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
+  - Collectables
   - 
   - 
   - 

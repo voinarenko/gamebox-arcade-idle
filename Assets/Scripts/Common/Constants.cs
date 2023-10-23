@@ -12,11 +12,16 @@ namespace Assets.Scripts.Common
         public string PlayerPrefabPath = "Prefabs/Player";
         public string PlayerSettingsPath = "ScriptableObjects/PlayerSettings";
 
+        // объекты
+        public string TreePrefabPath = "Prefabs/Tree";
+        public string RockPrefabPath = "Prefabs/Rock";
+        public string CollectablesSettingsPath = "ScriptableObjects/CollectablesSettings";
+
         // метки
         public string GroundTag = "Ground";
         public string PlayerTag = "Player";
-
-        // анимация
-        public string PlayerWalkAnimLabel = "Walking";
+        public string ObjectsTag = "Objects";
+        public string TreeTag = "Tree";
+        public string RockTag = "Rock";
     }
 }
