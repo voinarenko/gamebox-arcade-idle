@@ -9,6 +9,11 @@ namespace Assets.Scripts.Common
     public class Constants : ScriptableObject
     {
         public string PlayerSettingsPath = "ScriptableObjects/PlayerSettings";
+
+        // метки
         public string GroundTag = "Ground";
+
+        // анимация
+        public string PlayerWalkAnimLabel = "Walking";
     }
 }

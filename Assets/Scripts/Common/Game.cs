@@ -11,6 +11,8 @@ namespace Assets.Scripts.Common
         public Constants Constants { get; private set; } // константы
         public Player.Player Player { get; private set; } // игрок
 
+        public Vector3 MousePosition { get; set; } // координаты мыши на плоскости
+
         private void Awake()
         {
             Constants = Resources.Load<Constants>(ConstantsPath);

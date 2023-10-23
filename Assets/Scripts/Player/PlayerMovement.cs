@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -10,10 +9,7 @@ namespace Assets.Scripts.Player
     {
         private Player _player; // игрок
 
-        private void Start()
-        {
-            _player = GetComponent<Player>();
-        }
+        private void Start() => _player = GetComponent<Player>();
 
         private void Update()
         {
@@ -26,6 +22,9 @@ namespace Assets.Scripts.Player
         /// <param name="position">координаты цели</param>
         private void Move(Vector3 position)
         {
+            _player.Rotation.Rotate(position);
+            if (_player.IsRotating) return;
+            _player.SwitchMoveAnimation(true);
             transform.position = Vector3.MoveTowards(transform.position, position, _player.MovementSpeed * Time.deltaTime);
             if (transform.position == position) _player.StopMoving();
         }
