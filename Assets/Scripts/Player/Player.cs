@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Common;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,9 +8,9 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class Player : MonoBehaviour
     {
-        private Game _game; // игра
-        private Animator _animator; // аниматор
-        private PlayerSettings _settings; // параметры игрока
+        [SerializeField] private Game _game; // игра
+        [SerializeField] private Animator _animator; // аниматор
+        [SerializeField] private PlayerSettings _settings; // параметры игрока
         public PlayerRotation Rotation { get; private set; }
         public float RotationSpeed { get; private set; } // скорость вращения
         public float MovementSpeed { get; private set; } // скорость движения
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            _game = FindAnyObjectByType<Game>();
+            _game = GetComponentInParent<Game>();
             _settings = Resources.Load<PlayerSettings>(_game.Constants.PlayerSettingsPath);
             RotationSpeed = _settings.RotationSpeed;
             MovementSpeed = _settings.MovementSpeed;

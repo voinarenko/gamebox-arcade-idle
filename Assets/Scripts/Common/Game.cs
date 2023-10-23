@@ -13,10 +13,12 @@ namespace Assets.Scripts.Common
 
         public Vector3 MousePosition { get; set; } // координаты мыши на плоскости
 
-        private void Awake()
+        private void Start()
         {
             Constants = Resources.Load<Constants>(ConstantsPath);
-            Player = FindAnyObjectByType<Player.Player>();
+            var playerPrefab = Resources.Load<Player.Player>(Constants.PlayerPrefabPath);
+            Instantiate(playerPrefab, transform);
+            Player = GetComponentInChildren<Player.Player>();
         }
     }
 }
