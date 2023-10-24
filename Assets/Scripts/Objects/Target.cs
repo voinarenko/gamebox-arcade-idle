@@ -12,7 +12,7 @@ namespace Assets.Scripts.Objects
 
         private void Start()
         {
-            _selectionColor = GetComponent<Collectable>().Settings.SelectionColor;
+            _selectionColor = GetComponent<Interactive>().Settings.SelectionColor;
             Refresh();
         }
 

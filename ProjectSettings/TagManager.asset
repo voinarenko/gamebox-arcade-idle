@@ -8,6 +8,7 @@ TagManager:
   - Tree
   - Rock
   - Objects
+  - Shop
   layers:
   - Default
   - TransparentFX

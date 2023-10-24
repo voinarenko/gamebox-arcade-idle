@@ -5,8 +5,8 @@ namespace Assets.Scripts.Objects
     /// <summary>
     /// Настройки собираемых ресурсов.
     /// </summary>
-    [CreateAssetMenu(fileName = "Collectables Settings", menuName = "Game/Collectables/Settings")]
-    public class CollectablesSettings : ScriptableObject
+    [CreateAssetMenu(fileName = "Interactive Settings", menuName = "Game/Interactive/Settings")]
+    public class InteractiveSettings : ScriptableObject
     {
         public Color SelectionColor; // цвет выделения
 

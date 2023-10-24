@@ -811,6 +811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d19fc5e732603f43a7c2c733bbe3969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveToCollect: 0
+  MoveToCollectPosition: {x: 0, y: 0, z: 0}
+  WaitForClick: 0
+  NearTree: 0
+  NearRock: 0
 --- !u!114 &1860871274
 MonoBehaviour:
   m_ObjectHideFlags: 0

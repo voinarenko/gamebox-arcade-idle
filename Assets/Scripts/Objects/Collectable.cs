@@ -8,7 +8,6 @@ namespace Assets.Scripts.Objects
     /// </summary>
     public abstract class Collectable : Interactive
     {
-        public CollectablesSettings Settings { get; private set; }
         private float _timer; // таймер
         protected float RestoreTime; // время восстановления
         private Level[] _levels; // массив изображений уровня заполненности
@@ -19,7 +18,6 @@ namespace Assets.Scripts.Objects
         protected override void Start()
         {
             base.Start();
-            Settings = Game.CollectablesSettings;
             TreeTag = Game.TreeTag;
             RockTag = Game.RockTag;
             LoadLevels();
@@ -46,7 +44,6 @@ namespace Assets.Scripts.Objects
             base.OnTriggerStay(other);
             if (Game.MoveToCollect && Game.MoveToCollectPosition == transform.position) Game.MoveToCollect = false;
         }
-
 
         /// <summary>
         /// Метод загрузки уровней
