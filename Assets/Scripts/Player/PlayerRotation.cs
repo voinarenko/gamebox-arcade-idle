@@ -7,12 +7,12 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class PlayerRotation : MonoBehaviour
     {
-        private Player _player; // игрок
+        private Player _player;
 
         private void Start() => _player = GetComponent<Player>();
 
         /// <summary>
-        /// Метод вращения за мышью
+        /// Метод вращения
         /// </summary>
         public void Rotate(Vector3 position)
         {

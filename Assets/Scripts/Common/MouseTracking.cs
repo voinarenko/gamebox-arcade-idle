@@ -7,7 +7,7 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class MouseTracking : MonoBehaviour
     {
-        private Game _game; // игра
+        private Game _game;
         private Plane _ground = new(Vector3.up, 0); // плоскость для получения координат
 
         private void Start() => _game = GetComponent<Game>();

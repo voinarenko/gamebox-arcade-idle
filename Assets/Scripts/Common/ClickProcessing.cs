@@ -7,7 +7,7 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class ClickProcessing : MonoBehaviour
     {
-        private Game _game; // игра
+        private Game _game;
 
         private void Start() => _game = GetComponent<Game>();
 
@@ -17,9 +17,24 @@ namespace Assets.Scripts.Common
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(camRay, out var hitInfo)) return;
             if (hitInfo.transform.CompareTag(_game.Constants.GroundTag)) _game.Move(_game.MousePosition);
-            if (hitInfo.transform.CompareTag(_game.Constants.TreeTag) || hitInfo.transform.CompareTag(_game.Constants.RockTag))
+            if ((hitInfo.transform.CompareTag(_game.TreeTag) && _game.NearRock) || (hitInfo.transform.CompareTag(_game.RockTag) && _game.NearTree))
             {
                 _game.MoveToCollect = true;
+                _game.MoveToCollectPosition = hitInfo.transform.position;
+                _game.Move(hitInfo.transform.position);
+            }
+            else if ((hitInfo.transform.CompareTag(_game.TreeTag) && _game.NearTree) || (hitInfo.transform.CompareTag(_game.RockTag) && _game.NearRock))
+            {
+                _game.WaitForClick = false;
+                _game.MoveToCollect = true;
+                _game.MoveToCollectPosition = hitInfo.transform.position;
+                _game.Move(hitInfo.transform.position);
+            }
+            else if (hitInfo.transform.CompareTag(_game.TreeTag) || hitInfo.transform.CompareTag(_game.RockTag))
+            {
+                _game.WaitForClick = false;
+                _game.MoveToCollect = true;
+                _game.MoveToCollectPosition = hitInfo.transform.position;
                 _game.Move(hitInfo.transform.position);
             }
         }

@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class PlayerMovement : MonoBehaviour
     {
-        private Player _player; // игрок
+        private Player _player;
 
         private void Start() => _player = GetComponent<Player>();
 

@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects
         private void OnMouseEnter()
         {
             Refresh();
-            _renderer.material.color = _selectionColor;
+            if (_renderer != null) _renderer.material.color = _selectionColor;
         }
 
         private void OnMouseOver()
@@ -32,6 +32,9 @@ namespace Assets.Scripts.Objects
             if (_renderer != null) _renderer.material.color = Color.white;
         }
 
+        /// <summary>
+        /// Метод обновления рендерера.
+        /// </summary>
         public void Refresh() => _renderer = GetComponentInChildren<Renderer>();
     }
 }

@@ -9,18 +9,24 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class Game : MonoBehaviour
     {
-        private const string ConstantsPath = "ScriptableObjects/GameConstants";
-        public Constants Constants { get; private set; } // константы
-        private Player.Player _player; // игрок
-        public string PlayerTag { get; private set; }
-        public PlayerSettings PlayerSettings { get; private set; } // параметры игрока
-        public CollectablesSettings CollectablesSettings { get; private set; } // параметры собираемых ресурсов
+        private const string ConstantsPath = "ScriptableObjects/GameConstants"; // путь к файлу констант
+        public Constants Constants { get; private set; }
+        private Player.Player _player;
+        public string PlayerTag { get; private set; } // метка игрока
+        public string TreeTag { get; private set; } // метка дерева
+        public string RockTag { get; private set; } // метка камня
+        public PlayerSettings PlayerSettings { get; private set; }
+        public CollectablesSettings CollectablesSettings { get; private set; }
 
 
         private Transform _objects; // объекты
 
         public Vector3 MousePosition { get; internal set; } // координаты мыши на плоскости
-        public bool MoveToCollect { get; internal set; }
+        public bool MoveToCollect;// { get; internal set; } // движение к ресурсу
+        public Vector3 MoveToCollectPosition;// { get; internal set; } // координаты ресурса
+        public bool WaitForClick;// { get; internal set; } // ожидание нажатия кнопки мыши
+        public bool NearTree;// { get; internal set; } // игрок возле дерева
+        public bool NearRock;// { get; internal set; } // игрок возле камня
 
         private void Start()
         {
@@ -37,13 +43,23 @@ namespace Assets.Scripts.Common
 
             var treePrefab = Resources.Load<CollectableTree>(Constants.TreePrefabPath);
             Instantiate(treePrefab, _objects);
+            TreeTag = Constants.TreeTag;
 
             var rockPrefab = Resources.Load<CollectableRock>(Constants.RockPrefabPath);
             Instantiate(rockPrefab, _objects);
+            RockTag = Constants.RockTag;
         }
 
+        /// <summary>
+        /// Метод движения игрока
+        /// </summary>
+        /// <param name="position">координаты цели</param>
         public void Move(Vector3 position) => _player.Move(position);
 
-        public void StopMoving(Player.Player other) => other.StopMoving();
+        /// <summary>
+        /// Метод остановки движения игрока
+        /// </summary>
+        /// <param name="other">игрок</param>
+        public static void StopMoving(Player.Player other) => other.StopMoving();
     }
 }

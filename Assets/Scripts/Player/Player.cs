@@ -8,10 +8,10 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class Player : MonoBehaviour
     {
-        private Game _game; // игра
-        private Animator _animator; // аниматор
-        private PlayerSettings _settings; // параметры игрока
-        public PlayerRotation Rotation { get; private set; } // вращение игрока
+        private Game _game;
+        private Animator _animator;
+        private PlayerSettings _settings;
+        public PlayerRotation Rotation { get; private set; }
         public float RotationSpeed { get; private set; } // скорость вращения
         public float MovementSpeed { get; private set; } // скорость движения
         public Vector3 MovePosition { get; private set; } // цель движения
@@ -28,18 +28,29 @@ namespace Assets.Scripts.Player
             Rotation = GetComponent<PlayerRotation>();
         }
 
+        /// <summary>
+        /// Метод движения игрока
+        /// </summary>
+        /// <param name="position">цель</param>
         public void Move(Vector3 position)
         {
             MovePosition = position;
             IsMoving = true;
         }
 
+        /// <summary>
+        /// Метод остановки движения игрока
+        /// </summary>
         public void StopMoving()
         {
             IsMoving = false;
             SwitchMoveAnimation(false);
         }
 
+        /// <summary>
+        /// Метод переключения анимации движения игрока
+        /// </summary>
+        /// <param name="value"></param>
         public void SwitchMoveAnimation(bool value) => _animator.SetBool(_settings.PlayerWalkAnimLabel, value);
     }
 }
