@@ -8,7 +8,7 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class Player : MonoBehaviour
     {
-        private Game _game;
+        private const string PlayerSettingsPath = "ScriptableObjects/PlayerSettings";
         private Animator _animator;
         private PlayerSettings _settings;
         public PlayerRotation Rotation { get; private set; }
@@ -20,8 +20,7 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            _game = GetComponentInParent<Game>();
-            _settings = _game.PlayerSettings;
+            _settings = Resources.Load<PlayerSettings>(PlayerSettingsPath);
             RotationSpeed = _settings.RotationSpeed;
             MovementSpeed = _settings.MovementSpeed;
             _animator = GetComponent<Animator>();

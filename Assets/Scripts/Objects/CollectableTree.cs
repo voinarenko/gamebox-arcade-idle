@@ -42,6 +42,7 @@ namespace Assets.Scripts.Objects
         {
             if (Game.WaitForClick) return;
             Collect();
+            Game.AddWood(Settings.TreeCollectAmount);
             Game.WaitForClick = true;
         }
     }

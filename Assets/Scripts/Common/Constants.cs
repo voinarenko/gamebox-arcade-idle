@@ -10,13 +10,11 @@ namespace Assets.Scripts.Common
     {
         // игрок
         public string PlayerPrefabPath = "Prefabs/Player";
-        public string PlayerSettingsPath = "ScriptableObjects/PlayerSettings";
 
         // объекты
         public string TreePrefabPath = "Prefabs/Tree";
         public string RockPrefabPath = "Prefabs/Rock";
         public string ShopPrefabPath = "Prefabs/Shop";
-        public string InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings";
 
         // метки
         public string GroundTag = "Ground";

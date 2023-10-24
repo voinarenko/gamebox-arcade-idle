@@ -8,13 +8,14 @@ namespace Assets.Scripts.Objects
     /// </summary>
     public class Interactive : MonoBehaviour
     {
+        private const string InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings";
         protected Game Game;
         public InteractiveSettings Settings { get; private set; }
 
         protected virtual void Start()
         {
+            Settings = Resources.Load<InteractiveSettings>(InteractiveSettingsPath);
             Game = GetComponentInParent<Game>();
-            Settings = Game.InteractiveSettings;
         }
 
         protected virtual void OnTriggerEnter(Collider other)

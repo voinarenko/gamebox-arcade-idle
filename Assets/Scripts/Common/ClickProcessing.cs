@@ -16,7 +16,7 @@ namespace Assets.Scripts.Common
             if (!Input.GetMouseButtonDown(0)) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(camRay, out var hitInfo)) return;
-            if (hitInfo.transform.CompareTag(_game.Constants.GroundTag)) _game.Move(_game.MousePosition);
+            if (hitInfo.transform.CompareTag(_game.GroundTag)) _game.Move(_game.MousePosition);
 
             if (hitInfo.transform.CompareTag(_game.ShopTag))
             {
