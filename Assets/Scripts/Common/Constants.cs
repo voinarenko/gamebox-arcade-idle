@@ -8,6 +8,9 @@ namespace Assets.Scripts.Common
     [CreateAssetMenu(fileName = "Game Constants", menuName = "Game/Global/Constants")]
     public class Constants : ScriptableObject
     {
+        // игровое поле
+        public string GroundPrefabPath = "Prefabs/Ground";
+
         // игрок
         public string PlayerPrefabPath = "Prefabs/Player";
 

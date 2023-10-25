@@ -16,6 +16,7 @@ namespace Assets.Scripts.Objects
         protected override void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag(Game.PlayerTag)) return;
+            if (!Game.MoveToCollect) return;
             base.OnTriggerEnter(other);
             Game.NearTree = true;
             Game.NearRock = false;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Objects
         protected override void OnTriggerStay(Collider other)
         {
             if (!other.CompareTag(Game.PlayerTag)) return;
+            if (!Game.MoveToCollect) return;
             base.OnTriggerStay(other);
             Chop();
         }
@@ -42,7 +44,7 @@ namespace Assets.Scripts.Objects
         {
             if (Game.WaitForClick) return;
             Collect();
-            Game.AddWood(Settings.TreeCollectAmount);
+            Game.AddWood(Settings.WoodCollectAmount);
             Game.WaitForClick = true;
         }
     }

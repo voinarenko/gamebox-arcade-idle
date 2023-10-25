@@ -13,6 +13,7 @@ namespace Assets.Scripts.Common
         private Player.Player _player;
         private Inventory _inventory;
 
+        // метки
         public string GroundTag { get; private set; } // метка земли
         public string PlayerTag { get; private set; } // метка игрока
         public string ShopTag { get; private set; } // метка магазина
@@ -30,32 +31,41 @@ namespace Assets.Scripts.Common
         public bool NearTree { get; internal set; } // игрок возле дерева
         public bool NearRock { get; internal set; } // игрок возле камня
 
+        //инструменты
+        public bool Axe { get; set; }
+        public bool Pick { get; set; }
+
         private void Start()
         {
             Constants = Resources.Load<Constants>(ConstantsPath);
 
+            var groundPrefab = Resources.Load(Constants.GroundPrefabPath);
+            Instantiate(groundPrefab, transform);
             GroundTag = Constants.GroundTag;
 
-            var playerPrefab = Resources.Load<Player.Player>(Constants.PlayerPrefabPath);
+            var playerPrefab = Resources.Load(Constants.PlayerPrefabPath);
             Instantiate(playerPrefab, transform);
             _player = GetComponentInChildren<Player.Player>();
             PlayerTag = Constants.PlayerTag;
 
             _objects = GameObject.FindWithTag(Constants.ObjectsTag).transform;
 
-            var shopPrefab = Resources.Load<Shop>(Constants.ShopPrefabPath);
+            var shopPrefab = Resources.Load(Constants.ShopPrefabPath);
             Instantiate(shopPrefab, _objects);
             ShopTag = Constants.ShopTag;
 
-            var treePrefab = Resources.Load<CollectableTree>(Constants.TreePrefabPath);
+            var treePrefab = Resources.Load(Constants.TreePrefabPath);
             Instantiate(treePrefab, _objects);
             TreeTag = Constants.TreeTag;
 
-            var rockPrefab = Resources.Load<CollectableRock>(Constants.RockPrefabPath);
+            var rockPrefab = Resources.Load(Constants.RockPrefabPath);
             Instantiate(rockPrefab, _objects);
             RockTag = Constants.RockTag;
 
             _inventory = GetComponent<Inventory>();
+
+            Axe = _inventory.Axe;
+            Pick = _inventory.Pick;
         }
         
         /// <summary>

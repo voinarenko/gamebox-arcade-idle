@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionColor: {r: 1, g: 1, b: 0, a: 0}
   TreeRestoreTime: 10
-  TreeCollectCost: 0
+  WoodCollectAmount: 25
+  WoodCost: 1
   RockRestoreTime: 20
-  RockCollectCost: 0
+  StoneCollectAmount: 10
+  StoneCost: 5

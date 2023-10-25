@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -8,7 +7,7 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class Player : MonoBehaviour
     {
-        private const string PlayerSettingsPath = "ScriptableObjects/PlayerSettings";
+        private const string PlayerSettingsPath = "ScriptableObjects/PlayerSettings"; // файл настроек игрока
         private Animator _animator;
         private PlayerSettings _settings;
         public PlayerRotation Rotation { get; private set; }

@@ -11,9 +11,11 @@ namespace Assets.Scripts.Objects
         public Color SelectionColor; // цвет выделения
 
         public float TreeRestoreTime; // время восстановления уровня дерева
-        public int TreeCollectAmount; // стоимость дерева
+        public int WoodCollectAmount; // базовое количество собираемого дерева
+        public int WoodCost; // стоимость единицы дерева
 
         public float RockRestoreTime; // время восстановления уровня камня
-        public int RockCollectAmount; // стоимость камня
+        public int StoneCollectAmount; // базовое количество собираемого камня
+        public int StoneCost; // стоимость единицы камня
     }
 }

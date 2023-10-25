@@ -8,7 +8,7 @@ namespace Assets.Scripts.Objects
     /// </summary>
     public class Interactive : MonoBehaviour
     {
-        private const string InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings";
+        private const string InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings"; // файл настроек объектов
         protected Game Game;
         public InteractiveSettings Settings { get; private set; }
 
