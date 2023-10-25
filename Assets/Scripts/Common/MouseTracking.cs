@@ -7,16 +7,16 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class MouseTracking : MonoBehaviour
     {
-        private Game _game;
-        private Plane _ground = new(Vector3.up, 0); // плоскость для получения координат
+        private Game Game => GetComponent<Game>();
 
-        private void Start() => _game = GetComponent<Game>();
+        private Plane _ground = new(Vector3.up, 0); // плоскость для получения координат
 
         private void Update()
         {
+            if (Game.OverUI) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!_ground.Raycast(camRay, out var distance)) return;
-            _game.MousePosition = camRay.GetPoint(distance);
+            Game.MousePosition = camRay.GetPoint(distance);
         }
     }
 }

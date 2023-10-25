@@ -43,9 +43,12 @@ namespace Assets.Scripts.Objects
         private void Mine()
         {
             if (Game.WaitForClick) return;
-            Collect();
-            Game.AddStone(Settings.StoneCollectAmount);
-            Game.WaitForClick = true;
+            if (Game.Pick)
+            {
+                Collect();
+                Game.AddStone(Settings.StoneCollectAmount);
+                Game.WaitForClick = true;
+            }
         }
     }
 }

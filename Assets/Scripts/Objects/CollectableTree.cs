@@ -43,9 +43,12 @@ namespace Assets.Scripts.Objects
         private void Chop()
         {
             if (Game.WaitForClick) return;
-            Collect();
-            Game.AddWood(Settings.WoodCollectAmount);
-            Game.WaitForClick = true;
+            if (Game.Axe)
+            {
+                Collect();
+                Game.AddWood(Settings.WoodCollectAmount);
+                Game.WaitForClick = true;
+            }
         }
     }
 }

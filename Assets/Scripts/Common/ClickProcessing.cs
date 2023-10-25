@@ -7,44 +7,44 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class ClickProcessing : MonoBehaviour
     {
-        private Game _game;
-
-        private void Start() => _game = GetComponent<Game>();
+        private Game Game => GetComponent<Game>();
 
         private void Update()
         {
+            if (Game.OverUI) return;
+
             if (!Input.GetMouseButtonDown(0)) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(camRay, out var hitInfo)) return;
-            if (hitInfo.transform.CompareTag(_game.GroundTag)) _game.Move(_game.MousePosition);
+            if (hitInfo.transform.CompareTag(Game.GroundTag)) Game.Move(Game.MousePosition);
 
-            if (hitInfo.transform.CompareTag(_game.ShopTag))
+            if (hitInfo.transform.CompareTag(Game.ShopTag))
             {
-                _game.WaitForClick = false;
-                _game.MoveToTrade = true;
-                _game.MoveToTradePosition = hitInfo.transform.position;
-                _game.Move(hitInfo.transform.position);
+                Game.WaitForClick = false;
+                Game.MoveToTrade = true;
+                Game.MoveToTradePosition = hitInfo.transform.position;
+                Game.Move(hitInfo.transform.position);
             }
 
-            if ((hitInfo.transform.CompareTag(_game.TreeTag) && _game.NearRock) || (hitInfo.transform.CompareTag(_game.RockTag) && _game.NearTree))
+            if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearRock) || (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearTree))
             {
-                _game.MoveToCollect = true;
-                _game.MoveToCollectPosition = hitInfo.transform.position;
-                _game.Move(hitInfo.transform.position);
+                Game.MoveToCollect = true;
+                Game.MoveToCollectPosition = hitInfo.transform.position;
+                Game.Move(hitInfo.transform.position);
             }
-            else if ((hitInfo.transform.CompareTag(_game.TreeTag) && _game.NearTree) || (hitInfo.transform.CompareTag(_game.RockTag) && _game.NearRock))
+            else if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearTree) || (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearRock))
             {
-                _game.WaitForClick = false;
-                _game.MoveToCollect = true;
-                _game.MoveToCollectPosition = hitInfo.transform.position;
-                _game.Move(hitInfo.transform.position);
+                Game.WaitForClick = false;
+                Game.MoveToCollect = true;
+                Game.MoveToCollectPosition = hitInfo.transform.position;
+                Game.Move(hitInfo.transform.position);
             }
-            else if (hitInfo.transform.CompareTag(_game.TreeTag) || hitInfo.transform.CompareTag(_game.RockTag))
+            else if (hitInfo.transform.CompareTag(Game.TreeTag) || hitInfo.transform.CompareTag(Game.RockTag))
             {
-                _game.WaitForClick = false;
-                _game.MoveToCollect = true;
-                _game.MoveToCollectPosition = hitInfo.transform.position;
-                _game.Move(hitInfo.transform.position);
+                Game.WaitForClick = false;
+                Game.MoveToCollect = true;
+                Game.MoveToCollectPosition = hitInfo.transform.position;
+                Game.Move(hitInfo.transform.position);
             }
         }
     }

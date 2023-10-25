@@ -8,9 +8,9 @@ namespace Assets.Scripts.Player
     public class Player : MonoBehaviour
     {
         private const string PlayerSettingsPath = "ScriptableObjects/PlayerSettings"; // файл настроек игрока
-        private Animator _animator;
-        private PlayerSettings _settings;
-        public PlayerRotation Rotation { get; private set; }
+        private Animator Animator => GetComponent<Animator>();
+        private static PlayerSettings Settings => Resources.Load<PlayerSettings>(PlayerSettingsPath);
+        public PlayerRotation Rotation => GetComponent<PlayerRotation>();
         public float RotationSpeed { get; private set; } // скорость вращения
         public float MovementSpeed { get; private set; } // скорость движения
         public Vector3 MovePosition { get; private set; } // цель движения
@@ -19,11 +19,8 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            _settings = Resources.Load<PlayerSettings>(PlayerSettingsPath);
-            RotationSpeed = _settings.RotationSpeed;
-            MovementSpeed = _settings.MovementSpeed;
-            _animator = GetComponent<Animator>();
-            Rotation = GetComponent<PlayerRotation>();
+            RotationSpeed = Settings.RotationSpeed;
+            MovementSpeed = Settings.MovementSpeed;
         }
 
         /// <summary>
@@ -49,6 +46,6 @@ namespace Assets.Scripts.Player
         /// Метод переключения анимации движения игрока
         /// </summary>
         /// <param name="value"></param>
-        public void SwitchMoveAnimation(bool value) => _animator.SetBool(_settings.PlayerWalkAnimLabel, value);
+        public void SwitchMoveAnimation(bool value) => Animator.SetBool(Settings.PlayerWalkAnimLabel, value);
     }
 }

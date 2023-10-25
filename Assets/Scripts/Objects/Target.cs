@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Common;
+using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
@@ -8,23 +9,22 @@ namespace Assets.Scripts.Objects
     public class Target : MonoBehaviour
     {
         private Renderer _renderer;
-        private Color _selectionColor;
+        private Color SelectionColor => GetComponent<Interactive>().Settings.SelectionColor;
+        private Interactive Interactive => GetComponent<Interactive>();
 
-        private void Start()
-        {
-            _selectionColor = GetComponent<Interactive>().Settings.SelectionColor;
-            Refresh();
-        }
+        private void Start() => Refresh();
 
         private void OnMouseEnter()
         {
+            if (Interactive.Game.OverUI) return;
             Refresh();
-            if (_renderer != null) _renderer.material.color = _selectionColor;
+            if (_renderer != null) _renderer.material.color = SelectionColor;
         }
 
         private void OnMouseOver()
         {
-            if (_renderer != null) _renderer.material.color = _selectionColor;
+            if (Interactive.Game.OverUI) return;
+            if (_renderer != null) _renderer.material.color = SelectionColor;
         }
 
         private void OnMouseExit()

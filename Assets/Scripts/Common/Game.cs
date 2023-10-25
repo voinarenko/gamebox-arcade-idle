@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Objects;
+﻿using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Common
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Common
         private const string ConstantsPath = "ScriptableObjects/GameConstants"; // путь к файлу констант
         private Constants Constants { get; set; }
         private Player.Player _player;
-        private Inventory _inventory;
+        private Inventory Inventory => GetComponent<Inventory>();
 
         // метки
         public string GroundTag { get; private set; } // метка земли
@@ -32,12 +32,19 @@ namespace Assets.Scripts.Common
         public bool NearRock { get; internal set; } // игрок возле камня
 
         //инструменты
-        public bool Axe { get; set; }
-        public bool Pick { get; set; }
+        public bool Axe { get; set; } // топор
+        public bool Pick { get; set; } // кирка
+
+        // экраны
+        public bool OverUI { get; set; } // мышь над интерфейсом
+        public static TradeScreen TradeScreen => FindAnyObjectByType<TradeScreen>(FindObjectsInactive.Include);
+        public float ScreenCloseTime;
 
         private void Start()
         {
             Constants = Resources.Load<Constants>(ConstantsPath);
+
+            #region Загрузка и инициализация объектов
 
             var groundPrefab = Resources.Load(Constants.GroundPrefabPath);
             Instantiate(groundPrefab, transform);
@@ -62,10 +69,10 @@ namespace Assets.Scripts.Common
             Instantiate(rockPrefab, _objects);
             RockTag = Constants.RockTag;
 
-            _inventory = GetComponent<Inventory>();
+            #endregion
 
-            Axe = _inventory.Axe;
-            Pick = _inventory.Pick;
+            Axe = Inventory.Axe;
+            Pick = Inventory.Pick;
         }
         
         /// <summary>
@@ -84,12 +91,12 @@ namespace Assets.Scripts.Common
         /// Метод добавления дерева в инвентарь
         /// </summary>
         /// <param name="amount">количество дерева</param>
-        public void AddWood(int amount) => _inventory.AddWood(amount);
+        public void AddWood(int amount) => Inventory.AddWood(amount);
         
         /// <summary>
         /// Метод добавления камня в инвентарь
         /// </summary>
         /// <param name="amount">количество камня</param>
-        public void AddStone(int amount) => _inventory.AddStone(amount);
+        public void AddStone(int amount) => Inventory.AddStone(amount);
     }
 }
