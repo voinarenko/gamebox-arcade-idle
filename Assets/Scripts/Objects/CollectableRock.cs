@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Common;
+using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
@@ -43,12 +45,11 @@ namespace Assets.Scripts.Objects
         private void Mine()
         {
             if (Game.WaitForClick) return;
-            if (Game.Pick)
-            {
-                Collect();
-                Game.AddStone(Settings.StoneCollectAmount);
-                Game.WaitForClick = true;
-            }
+            if (!Game.Pick) return;
+            Collect();
+            var collectAmount = Convert.ToInt32(Settings.StoneCollectAmount + Settings.StoneCollectAmount * Settings.StoneCollectCoefficient * Game.GetComponent<Inventory>().PickLevel);
+            Game.AddStone(collectAmount);
+            Game.WaitForClick = true;
         }
     }
 }

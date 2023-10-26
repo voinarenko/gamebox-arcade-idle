@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f48c49dc34783f43b828291f734b462, type: 3}
   m_Name: InteractiveSettings
   m_EditorClassIdentifier: 
-  ScreenOpenTime: 0.3
-  ScreenCloseTime: 0.3
   SelectionColor: {r: 1, g: 1, b: 0, a: 0}
   TreeRestoreTime: 10
   WoodCollectAmount: 25
-  WoodCost: 1
+  WoodCollectCoefficient: 1.3
   RockRestoreTime: 20
   StoneCollectAmount: 10
-  StoneCost: 5
+  StoneCollectCoefficient: 1.1

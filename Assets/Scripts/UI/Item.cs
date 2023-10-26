@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Assets.Scripts.Common;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +10,15 @@ namespace Assets.Scripts.UI
     /// </summary>
     public class Item : MonoBehaviour
     {
-        public bool Resource { get; private set; }
+        private Game Game => GetComponentInParent<Screen>(includeInactive:true).Game;
+        private Inventory Inventory => Game.GetComponent<Inventory>();
+
+        public bool Resource { get; private set; } // является ли предмет ресурсом
         [SerializeField] private Image _buttonImage; // изображение иконки
         private TMP_Text ButtonText => GetComponentInChildren<TMP_Text>(); // количество ресурса
         [SerializeField] private Sprite[] _resourceIcons; // массив иконок ресурсов
         [SerializeField] private Sprite[] _toolIcons; // массив иконок инструментов
-        public int ResourceId { get; private set; } // индекс ресурса
+        public int Id;// { get; private set; } // индекс
         public int Amount { get; private set; } // количество
 
         /// <summary>
@@ -24,7 +28,13 @@ namespace Assets.Scripts.UI
         public void Init(int id)
         {
             _buttonImage.sprite = _toolIcons[id];
-            ButtonText.text = "";
+            Id = id;
+            ButtonText.text = id switch
+            {
+                0 => (Inventory.AxeLevel + 1).ToString(),
+                1 => (Inventory.PickLevel + 1).ToString(),
+                _ => ButtonText.text
+            };
         }
 
         /// <summary>
@@ -35,8 +45,8 @@ namespace Assets.Scripts.UI
         public void Init(int resourceId, int amount)
         {
             Resource = true;
-            ResourceId = resourceId;
-            _buttonImage.sprite = _resourceIcons[ResourceId];
+            Id = resourceId;
+            _buttonImage.sprite = _resourceIcons[Id];
             Amount = amount;
             ButtonText.text = Amount.ToString();
         }

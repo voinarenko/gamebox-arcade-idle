@@ -13,7 +13,7 @@ namespace Assets.Scripts.Common
         private Constants Constants { get; set; }
         private Player.Player _player;
         private Inventory Inventory => GetComponent<Inventory>();
-        public InteractiveSettings InteractiveSettings => FindAnyObjectByType<Interactive>().Settings;
+        public TradeSettings TradeSettings => FindAnyObjectByType<Interactive>().TradeSettings;
 
         // метки
         public string GroundTag { get; private set; } // метка земли

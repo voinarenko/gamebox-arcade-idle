@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Assets.Scripts.Common;
+using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
@@ -43,12 +45,11 @@ namespace Assets.Scripts.Objects
         private void Chop()
         {
             if (Game.WaitForClick) return;
-            if (Game.Axe)
-            {
-                Collect();
-                Game.AddWood(Settings.WoodCollectAmount);
-                Game.WaitForClick = true;
-            }
+            if (!Game.Axe) return;
+            Collect();
+            var collectAmount = Convert.ToInt32(Settings.WoodCollectAmount + Settings.WoodCollectAmount * Settings.WoodCollectCoefficient * Game.GetComponent<Inventory>().AxeLevel);
+            Game.AddWood(collectAmount);
+            Game.WaitForClick = true;
         }
     }
 }

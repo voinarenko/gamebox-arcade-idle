@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f544ce13e27e2a045a23404277cf3533, type: 3}
+  m_Name: TradeSettings
+  m_EditorClassIdentifier: 
+  WoodCost: 1
+  StoneCost: 5
+  AxeInitialCost: 10
+  AxeUpgradeGrowthRate: 0.2
+  PickInitialCost: 100
+  PickUpgradeGrowthRate: 0.5

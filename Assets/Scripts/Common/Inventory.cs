@@ -17,6 +17,7 @@ namespace Assets.Scripts.Common
         private GameObject _itemPrefab; // объект предмета инвентаря
 
         private static Transform SellParent => FindAnyObjectByType<SellContent>(FindObjectsInactive.Include).transform;
+        private static Transform BuyParent => FindAnyObjectByType<BuyContent>(FindObjectsInactive.Include).transform;
 
         // метки сохранения
         private const string MoneyLabel = "MoneyAmount"; // ключ для сохранения денег
@@ -43,6 +44,26 @@ namespace Assets.Scripts.Common
         }
 
         private void OnDisable() => SaveData();
+
+        /// <summary>
+        /// Метод инициализации инструментов
+        /// </summary>
+        private void InitTools()
+        {
+            var itemPrefab = (GameObject)Resources.Load(ItemPrefabPath);
+            var axe = Instantiate(itemPrefab, BuyParent);
+            if (AxeLevel < 1) AxeLevel = 1;
+            axe.GetComponent<Item>().Init(0);
+            var pick = Instantiate(itemPrefab, BuyParent);
+            if (!Pick) PickLevel = 0;
+            else if (PickLevel < 1) PickLevel = 1;
+            pick.GetComponent<Item>().Init(1);
+        }
+
+        /// <summary>
+        /// Метод проверки наличия кирки
+        /// </summary>
+        public void CheckPick() => Pick = PickLevel > 0;
 
         /// <summary>
         /// Метод добавления денег в инвентарь
@@ -120,6 +141,7 @@ namespace Assets.Scripts.Common
             AxeLevel = PlayerPrefs.GetInt(AxeLevelLabel);
             Pick = PlayerPrefs.GetInt(PickObtainedLabel) == 1;
             PickLevel = PlayerPrefs.GetInt(PickLevelLabel);
+            InitTools();
         }
 
         /// <summary>
@@ -169,7 +191,7 @@ namespace Assets.Scripts.Common
             PlayerPrefs.SetInt("ResourcesQuantity", quantity);
             for(var i = 0; i < quantity; i++)
             {
-                PlayerPrefs.SetInt($"Resource{i}Image", items[i].ResourceId);
+                PlayerPrefs.SetInt($"Resource{i}Image", items[i].Id);
                 PlayerPrefs.SetInt($"Resource{i}Amount", items[i].Amount);
             }
         }
@@ -182,7 +204,7 @@ namespace Assets.Scripts.Common
         private static int CalculateResources(int resourceId)
         {
             var items = FindResources();
-            return items.Where(item => item.ResourceId == resourceId).Sum(item => item.Amount);
+            return items.Where(item => item.Id == resourceId).Sum(item => item.Amount);
         }
     }
 }

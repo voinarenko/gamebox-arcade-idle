@@ -9,8 +9,10 @@ namespace Assets.Scripts.Objects
     public class Interactive : MonoBehaviour
     {
         private const string InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings"; // файл настроек объектов
+        private const string TradeSettingsPath = "ScriptableObjects/TradeSettings"; // файл настроек торговли
         public Game Game;
         public InteractiveSettings Settings => Resources.Load<InteractiveSettings>(InteractiveSettingsPath);
+        public TradeSettings TradeSettings => Resources.Load<TradeSettings>(TradeSettingsPath);
 
         protected virtual void Start() => Game = GetComponentInParent<Game>();
 

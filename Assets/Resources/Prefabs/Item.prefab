@@ -304,7 +304,9 @@ MonoBehaviour:
   _resourceIcons:
   - {fileID: 21300000, guid: e0eac6b76fdd842e88a7f8c75ecffaf4, type: 3}
   - {fileID: 21300000, guid: ebe856b230561524b8ea8796bef16813, type: 3}
-  _toolIcons: []
+  _toolIcons:
+  - {fileID: 21300000, guid: 90dd794af408d254da074e51f5319815, type: 3}
+  - {fileID: 21300000, guid: e1ca63461983b96409232f2a1bd27912, type: 3}
 --- !u!114 &8141149108215522806
 MonoBehaviour:
   m_ObjectHideFlags: 0
