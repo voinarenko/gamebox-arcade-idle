@@ -13,7 +13,7 @@ namespace Assets.Scripts.Common
 
         private void Update()
         {
-            if (Game.OverUI) return;
+            if (Game.OverUi) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!_ground.Raycast(camRay, out var distance)) return;
             Game.MousePosition = camRay.GetPoint(distance);

@@ -9,16 +9,16 @@ namespace Assets.Scripts.UI
     /// </summary>
     public class Screen : MonoBehaviour
     {
-        private static Game Game => FindAnyObjectByType<Game>();
+        public Game Game => FindAnyObjectByType<Game>();
 
         protected void OnEnable()
         {
             transform.localScale = Vector3.zero;
             transform.DOScale(Vector3.one, Ui.Settings.ScreenOpenTime);
-            Game.OverUI = true;
+            Game.OverUi = true;
         }
 
-        protected void OnDisable() => Game.OverUI = false;
+        protected void OnDisable() => Game.OverUi = false;
 
         /// <summary>
         /// Метод плавного закрытия окна

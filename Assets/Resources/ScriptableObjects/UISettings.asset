@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6730763e7e6d24e986fd366fceb8af, type: 3}
   m_Name: UISettings
   m_EditorClassIdentifier: 
-  ScreenOpenTime: 0
-  ScreenCloseTime: 0
+  ScreenOpenTime: 0.3
+  ScreenCloseTime: 0.3

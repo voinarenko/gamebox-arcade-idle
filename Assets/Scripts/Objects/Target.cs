@@ -16,14 +16,14 @@ namespace Assets.Scripts.Objects
 
         private void OnMouseEnter()
         {
-            if (Interactive.Game.OverUI) return;
+            if (Interactive.Game.OverUi) return;
             Refresh();
             if (_renderer != null) _renderer.material.color = SelectionColor;
         }
 
         private void OnMouseOver()
         {
-            if (Interactive.Game.OverUI) return;
+            if (Interactive.Game.OverUi) return;
             if (_renderer != null) _renderer.material.color = SelectionColor;
         }
 

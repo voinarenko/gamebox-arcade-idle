@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Common;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects

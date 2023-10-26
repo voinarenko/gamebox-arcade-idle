@@ -11,7 +11,7 @@ namespace Assets.Scripts.Common
 
         private void Update()
         {
-            if (Game.OverUI) return;
+            if (Game.OverUi) return;
 
             if (!Input.GetMouseButtonDown(0)) return;
             var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
