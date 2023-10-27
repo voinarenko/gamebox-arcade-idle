@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = Assets.Scripts.UI.Screens.Screen;
 
 namespace Assets.Scripts.UI
 {
@@ -18,8 +19,8 @@ namespace Assets.Scripts.UI
         private TMP_Text ButtonText => GetComponentInChildren<TMP_Text>(); // количество ресурса
         [SerializeField] private Sprite[] _resourceIcons; // массив иконок ресурсов
         [SerializeField] private Sprite[] _toolIcons; // массив иконок инструментов
-        public int Id;// { get; private set; } // индекс
-        public int Amount { get; private set; } // количество
+        public int Id { get; private set; } // индекс
+        public int Value { get; private set; } // значение
 
         /// <summary>
         /// Метод инициализации инструмента
@@ -35,6 +36,7 @@ namespace Assets.Scripts.UI
                 1 => (Inventory.PickLevel + 1).ToString(),
                 _ => ButtonText.text
             };
+            Inventory.ResourcesDisplay.UpdateView();
         }
 
         /// <summary>
@@ -47,8 +49,8 @@ namespace Assets.Scripts.UI
             Resource = true;
             Id = resourceId;
             _buttonImage.sprite = _resourceIcons[Id];
-            Amount = amount;
-            ButtonText.text = Amount.ToString();
+            Value = amount;
+            ButtonText.text = Value.ToString();
         }
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   SelectionColor: {r: 1, g: 1, b: 0, a: 0}
   TreeRestoreTime: 10
   WoodCollectAmount: 25
-  WoodCollectCoefficient: 1.3
+  WoodCollectCoefficient: 0.3
   RockRestoreTime: 20
   StoneCollectAmount: 10
-  StoneCollectCoefficient: 1.1
+  StoneCollectCoefficient: 0.1

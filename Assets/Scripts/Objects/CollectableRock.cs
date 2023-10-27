@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Common;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
@@ -22,6 +21,7 @@ namespace Assets.Scripts.Objects
             base.OnTriggerEnter(other);
             Game.NearRock = true;
             Game.NearTree = false;
+            if (transform.position != Game.MoveToCollectPosition) return;
             Mine();
         }
 
@@ -30,6 +30,9 @@ namespace Assets.Scripts.Objects
             if (!other.CompareTag(Game.PlayerTag)) return;
             if (!Game.MoveToCollect) return;
             base.OnTriggerStay(other);
+            Game.NearRock = true;
+            Game.NearTree = false;
+            if (transform.position != Game.MoveToCollectPosition) return;
             Mine();
         }
 
@@ -47,7 +50,7 @@ namespace Assets.Scripts.Objects
             if (Game.WaitForClick) return;
             if (!Game.Pick) return;
             Collect();
-            var collectAmount = Convert.ToInt32(Settings.StoneCollectAmount + Settings.StoneCollectAmount * Settings.StoneCollectCoefficient * Game.GetComponent<Inventory>().PickLevel);
+            var collectAmount = Game.GetComponent<Inventory>().GetAmount(1);
             Game.AddStone(collectAmount);
             Game.WaitForClick = true;
         }

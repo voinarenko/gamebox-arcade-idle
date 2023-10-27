@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Common;
 using Assets.Scripts.Objects;
+using Assets.Scripts.UI.Screens;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.UI.Buttons
@@ -11,24 +12,25 @@ namespace Assets.Scripts.UI.Buttons
     public class ActionButton : Button
     {
         private Game Game => GetComponentInParent<Screen>().Game; 
-        private TradeSettings Settings => Game.TradeSettings;
+        private static TradeSettings Settings => Game.TradeSettings;
         private Inventory Inventory => Game.GetComponent<Inventory>();
 
         public override void OnPointerClick(PointerEventData eventData)
         {
             var item = GetComponent<Item>();
             
-            if (item.Resource){
+            if (item.Resource)
+            {
                 switch (item.Id)
                 {
                     case 0:
-                        Game.AddMoney(Settings.WoodCost * item.Amount);
-                        Game.RemoveWood(item.Amount);
+                        Game.AddMoney(Settings.WoodCost * item.Value);
+                        Game.RemoveWood(item.Value);
                         Destroy(gameObject);
                         break;
                     case 1:
-                        Game.AddMoney(Settings.StoneCost * item.Amount);
-                        Game.RemoveStone(item.Amount);
+                        Game.AddMoney(Settings.StoneCost * item.Value);
+                        Game.RemoveStone(item.Value);
                         Destroy(gameObject);
                         break;
                 }
@@ -38,15 +40,13 @@ namespace Assets.Scripts.UI.Buttons
                 switch (item.Id)
                 {
                     case 0:
-                        var axePrice = Convert.ToInt32(Settings.AxeInitialCost *
-                                                    Math.Exp(Settings.AxeUpgradeGrowthRate * (Inventory.AxeLevel + 1)));
+                        var axePrice = Inventory.GetPrice(item.Id);
                         if (axePrice > Inventory.MoneyAmount) return;
                         Game.RemoveMoney(axePrice);
                         Inventory.AxeLevel++;
                         break;
                     case 1:
-                        var pickPrice = Convert.ToInt32(Settings.PickInitialCost *
-                                                    Math.Exp(Settings.PickUpgradeGrowthRate * (Inventory.PickLevel + 1)));
+                        var pickPrice = Inventory.GetPrice(item.Id);
                         if (pickPrice > Inventory.MoneyAmount) return;
                         Game.RemoveMoney(pickPrice);
                         Inventory.PickLevel++;
@@ -54,6 +54,7 @@ namespace Assets.Scripts.UI.Buttons
                         break;
                 }
                 item.Init(item.Id);
+                Inventory.SaveData();
             }
         }
     }

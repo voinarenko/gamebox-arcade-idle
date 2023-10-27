@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Objects;
 using Assets.Scripts.UI;
+using Assets.Scripts.UI.Screens;
 using UnityEngine;
 
 namespace Assets.Scripts.Common
@@ -9,66 +10,63 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class Game : MonoBehaviour
     {
-        private const string ConstantsPath = "ScriptableObjects/GameConstants"; // путь к файлу констант
-        private Constants Constants { get; set; }
         private Player.Player _player;
         private Inventory Inventory => GetComponent<Inventory>();
-        public TradeSettings TradeSettings => FindAnyObjectByType<Interactive>().TradeSettings;
+        public static TradeSettings TradeSettings => FindAnyObjectByType<Interactive>().TradeSettings;
+        public static TradeScreen TradeScreen => FindAnyObjectByType<TradeScreen>(FindObjectsInactive.Include);
+
+        // пути к файлам
+        private const string GroundPrefabPath = "Prefabs/Ground"; // путь к файлу земли
+        private const string PlayerPrefabPath = "Prefabs/Player"; // путь к файлу игрока
+        private const string TreePrefabPath = "Prefabs/Tree"; // путь к файлу дерева
+        private const string RockPrefabPath = "Prefabs/Rock"; // путь к файлу скалы
+        private const string ShopPrefabPath = "Prefabs/Shop"; // путь к файлу магазина
 
         // метки
-        public string GroundTag { get; private set; } // метка земли
-        public string PlayerTag { get; private set; } // метка игрока
-        public string ShopTag { get; private set; } // метка магазина
-        public string TreeTag { get; private set; } // метка дерева
-        public string RockTag { get; private set; } // метка камня
+        public const string GroundTag = "Ground"; // метка земли
+        public const string PlayerTag = "Player"; // метка игрока
+        private const string ObjectsTag = "Objects"; // метка места генерации объектов
+        public const string ShopTag = "Shop"; // метка магазина
+        public const string TreeTag = "Tree"; // метка дерева
+        public const string RockTag = "Rock"; // метка камня
 
         private Transform _objects; // объекты
 
         public Vector3 MousePosition { get; internal set; } // координаты мыши на плоскости
-        public bool MoveToCollect { get; internal set; } // движение к ресурсу
-        public bool MoveToTrade { get; internal set; } // движение к магазину
+        public bool MoveToCollect;// { get; internal set; } // движение к ресурсу
+        public bool MoveToTrade;// { get; internal set; } // движение к магазину
         public Vector3 MoveToCollectPosition { get; internal set; } // координаты ресурса
         public Vector3 MoveToTradePosition { get; internal set; } // координаты магазина
-        public bool WaitForClick { get; internal set; } // ожидание нажатия кнопки мыши
-        public bool NearTree { get; internal set; } // игрок возле дерева
-        public bool NearRock { get; internal set; } // игрок возле камня
+        public bool WaitForClick;// { get; internal set; } // ожидание нажатия кнопки мыши
+        public bool NearTree;// { get; internal set; } // игрок возле дерева
+        public bool NearRock;// { get; internal set; } // игрок возле камня
+        public bool OverUi { get; set; } // мышь над интерфейсом
 
         //инструменты
         public bool Axe { get; set; } // топор
-        public bool Pick { get; set; } // кирка
-
-        // экраны
-        public bool OverUi { get; set; } // мышь над интерфейсом
-        public static TradeScreen TradeScreen => FindAnyObjectByType<TradeScreen>(FindObjectsInactive.Include);
+        public bool Pick { get; private set; } // кирка
 
         private void Start()
         {
-            Constants = Resources.Load<Constants>(ConstantsPath);
-
             #region Загрузка и инициализация объектов
 
-            var groundPrefab = Resources.Load(Constants.GroundPrefabPath);
+            var groundPrefab = Resources.Load(GroundPrefabPath);
             Instantiate(groundPrefab, transform);
-            GroundTag = Constants.GroundTag;
 
-            var playerPrefab = Resources.Load(Constants.PlayerPrefabPath);
+            var playerPrefab = Resources.Load(PlayerPrefabPath);
             Instantiate(playerPrefab, transform);
             _player = GetComponentInChildren<Player.Player>();
-            PlayerTag = Constants.PlayerTag;
 
-            _objects = GameObject.FindWithTag(Constants.ObjectsTag).transform;
+            _objects = GameObject.FindWithTag(ObjectsTag).transform;
 
-            var shopPrefab = Resources.Load(Constants.ShopPrefabPath);
+            var shopPrefab = Resources.Load(ShopPrefabPath);
             Instantiate(shopPrefab, _objects);
-            ShopTag = Constants.ShopTag;
 
-            var treePrefab = Resources.Load(Constants.TreePrefabPath);
+            var treePrefab = Resources.Load(TreePrefabPath);
             Instantiate(treePrefab, _objects);
-            TreeTag = Constants.TreeTag;
 
-            var rockPrefab = Resources.Load(Constants.RockPrefabPath);
+            var rockPrefab = Resources.Load(RockPrefabPath);
             Instantiate(rockPrefab, _objects);
-            RockTag = Constants.RockTag;
 
             #endregion
 

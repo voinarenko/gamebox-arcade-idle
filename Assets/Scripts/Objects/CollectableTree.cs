@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Common;
+﻿using Assets.Scripts.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
@@ -22,6 +21,7 @@ namespace Assets.Scripts.Objects
             base.OnTriggerEnter(other);
             Game.NearTree = true;
             Game.NearRock = false;
+            if (transform.position != Game.MoveToCollectPosition) return;
             Chop();
         }
 
@@ -30,6 +30,9 @@ namespace Assets.Scripts.Objects
             if (!other.CompareTag(Game.PlayerTag)) return;
             if (!Game.MoveToCollect) return;
             base.OnTriggerStay(other);
+            Game.NearTree = true;
+            Game.NearRock = false;
+            if (transform.position != Game.MoveToCollectPosition) return;
             Chop();
         }
 
@@ -47,7 +50,7 @@ namespace Assets.Scripts.Objects
             if (Game.WaitForClick) return;
             if (!Game.Axe) return;
             Collect();
-            var collectAmount = Convert.ToInt32(Settings.WoodCollectAmount + Settings.WoodCollectAmount * Settings.WoodCollectCoefficient * Game.GetComponent<Inventory>().AxeLevel);
+            var collectAmount = Game.GetComponent<Inventory>().GetAmount(0);
             Game.AddWood(collectAmount);
             Game.WaitForClick = true;
         }
