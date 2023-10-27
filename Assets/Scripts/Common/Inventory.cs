@@ -1,33 +1,35 @@
 ﻿using System;
-using Assets.Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Objects;
+using Assets.Scripts.UI;
 using Assets.Scripts.UI.Screens;
 using UnityEngine;
 
 namespace Assets.Scripts.Common
 {
     /// <summary>
-    /// Инвентарь.
+    ///     Инвентарь.
     /// </summary>
     public class Inventory : MonoBehaviour
     {
-        public static ResourcesAvailability ResourcesDisplay => FindAnyObjectByType<ResourcesAvailability>();
-        private InteractiveSettings CollectSettings => FindAnyObjectByType<Interactive>().Settings;
-
         // экран магазина
         private const string ItemPrefabPath = "Prefabs/Item"; // путь к объекту предмета инвентаря
-        private GameObject _itemPrefab; // объект предмета инвентаря
-
-        private static Transform SellParent => FindAnyObjectByType<SellContent>(FindObjectsInactive.Include).transform; // место генерации ресурсов
-        private static Transform BuyParent => FindAnyObjectByType<BuyContent>(FindObjectsInactive.Include).transform; // место генерации инструментов
 
         // метки сохранения
         private const string MoneyLabel = "MoneyAmount"; // ключ для сохранения денег
         private const string AxeLevelLabel = "AxeLevel"; // ключ для сохранения уровня топора
         private const string PickObtainedLabel = "PickObtained"; // ключ для сохранения наличия кирки
         private const string PickLevelLabel = "PickLevel"; // ключ для сохранения кирки
+        private GameObject _itemPrefab; // объект предмета инвентаря
+        public static ResourcesAvailability ResourcesDisplay => FindAnyObjectByType<ResourcesAvailability>();
+        private InteractiveSettings CollectSettings => FindAnyObjectByType<Interactive>().Settings;
+
+        private static Transform SellParent =>
+            FindAnyObjectByType<SellContent>(FindObjectsInactive.Include).transform; // место генерации ресурсов
+
+        private static Transform BuyParent =>
+            FindAnyObjectByType<BuyContent>(FindObjectsInactive.Include).transform; // место генерации инструментов
 
         // ресурсы
         public int MoneyAmount { get; private set; } // деньги
@@ -48,7 +50,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод инициализации инструментов
+        ///     Метод инициализации инструментов
         /// </summary>
         private void InitTools()
         {
@@ -63,12 +65,15 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод проверки наличия кирки
+        ///     Метод проверки наличия кирки
         /// </summary>
-        public void CheckPick() => Pick = PickLevel > 0;
+        public void CheckPick()
+        {
+            Pick = PickLevel > 0;
+        }
 
         /// <summary>
-        /// Метод добавления денег в инвентарь
+        ///     Метод добавления денег в инвентарь
         /// </summary>
         /// <param name="amount">количество денег</param>
         public void AddMoney(int amount)
@@ -79,7 +84,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод вычитания денег из инвентаря
+        ///     Метод вычитания денег из инвентаря
         /// </summary>
         /// <param name="amount">количество денег</param>
         public void RemoveMoney(int amount)
@@ -90,7 +95,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод добавления денег в инвентарь
+        ///     Метод добавления денег в инвентарь
         /// </summary>
         /// <param name="amount">количество денег</param>
         public void AddWood(int amount)
@@ -103,7 +108,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод вычитания дерева из инвентаря
+        ///     Метод вычитания дерева из инвентаря
         /// </summary>
         /// <param name="amount">количество дерева</param>
         public void RemoveWood(int amount)
@@ -114,7 +119,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод добавления камня в инвентарь
+        ///     Метод добавления камня в инвентарь
         /// </summary>
         /// <param name="amount">количество камня</param>
         public void AddStone(int amount)
@@ -127,7 +132,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод вычитания камня из инвентаря
+        ///     Метод вычитания камня из инвентаря
         /// </summary>
         /// <param name="amount">количество камня</param>
         public void RemoveStone(int amount)
@@ -138,7 +143,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод загрузки сохранённых данных
+        ///     Метод загрузки сохранённых данных
         /// </summary>
         public void LoadData()
         {
@@ -153,7 +158,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод сохранения данных
+        ///     Метод сохранения данных
         /// </summary>
         public void SaveData()
         {
@@ -163,7 +168,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод поиска ресурсов на сцене.
+        ///     Метод поиска ресурсов на сцене.
         /// </summary>
         /// <returns>список ресурсов</returns>
         private static List<Item> FindResources()
@@ -174,28 +179,29 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод загрузки ресурсов
+        ///     Метод загрузки ресурсов
         /// </summary>
         private static void LoadResources()
         {
             var quantity = PlayerPrefs.GetInt("ResourcesQuantity");
-            for(var i = 0; i < quantity; i++)
+            for (var i = 0; i < quantity; i++)
             {
                 var itemPrefab = (GameObject)Resources.Load(ItemPrefabPath);
                 var item = Instantiate(itemPrefab, SellParent);
-                item.GetComponent<Item>().Init(PlayerPrefs.GetInt($"Resource{i}Image"), PlayerPrefs.GetInt($"Resource{i}Amount"));
+                item.GetComponent<Item>().Init(PlayerPrefs.GetInt($"Resource{i}Image"),
+                    PlayerPrefs.GetInt($"Resource{i}Amount"));
             }
         }
 
         /// <summary>
-        /// Метод сохранения ресурсов
+        ///     Метод сохранения ресурсов
         /// </summary>
         private static void SaveResources()
         {
-            var items= FindResources();
+            var items = FindResources();
             var quantity = items.Count;
             PlayerPrefs.SetInt("ResourcesQuantity", quantity);
-            for(var i = 0; i < quantity; i++)
+            for (var i = 0; i < quantity; i++)
             {
                 PlayerPrefs.SetInt($"Resource{i}Image", items[i].Id);
                 PlayerPrefs.SetInt($"Resource{i}Amount", items[i].Value);
@@ -203,7 +209,7 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод подсчёта ресурсов при загрузке
+        ///     Метод подсчёта ресурсов при загрузке
         /// </summary>
         /// <param name="resourceId">индекс ресурса</param>
         /// <returns>сумма ресурса</returns>
@@ -214,11 +220,11 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод получения цены инструмента
+        ///     Метод получения цены инструмента
         /// </summary>
         /// <param name="id">индекс инструмента</param>
         /// <returns>цена</returns>
-        public int GetPrice(int id)
+        public int GetToolPrice(int id)
         {
             var result = id switch
             {
@@ -233,7 +239,24 @@ namespace Assets.Scripts.Common
         }
 
         /// <summary>
-        /// Метод получения количества материала для сбора, в зависимости от уровня инструмента
+        ///     Метод получения цены ресурса
+        /// </summary>
+        /// <param name="id">индекс ресурса</param>
+        /// <returns>цена</returns>
+        public static int GetResourcePrice(int id)
+        {
+            var result = id switch
+            {
+                0 => Game.TradeSettings.WoodCost,
+                1 => Game.TradeSettings.StoneCost,
+                _ => 0
+            };
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Метод получения количества материала для сбора, в зависимости от уровня инструмента
         /// </summary>
         /// <param name="id">индекс материала</param>
         /// <returns>количество</returns>
@@ -244,7 +267,8 @@ namespace Assets.Scripts.Common
                 0 => Convert.ToInt32(CollectSettings.WoodCollectAmount + CollectSettings.WoodCollectAmount *
                     CollectSettings.WoodCollectCoefficient *
                     (AxeLevel - 1)),
-                1 => Convert.ToInt32(CollectSettings.StoneCollectAmount + CollectSettings.StoneCollectAmount * CollectSettings.StoneCollectCoefficient *
+                1 => Convert.ToInt32(CollectSettings.StoneCollectAmount + CollectSettings.StoneCollectAmount *
+                    CollectSettings.StoneCollectCoefficient *
                     (PickLevel - 1)),
                 _ => 0
             };

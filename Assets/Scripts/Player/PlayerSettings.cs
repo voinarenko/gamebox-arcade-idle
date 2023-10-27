@@ -3,22 +3,24 @@
 namespace Assets.Scripts.Player
 {
     /// <summary>
-    /// Настройки игрока.
+    ///     Настройки игрока.
     /// </summary>
     [CreateAssetMenu(fileName = "Player Settings", menuName = "Game/Player/Settings")]
     public class PlayerSettings : ScriptableObject
     {
         /// <summary>
-        /// скорость движения игрока
+        ///     скорость движения игрока
         /// </summary>
         public float MovementSpeed;
-        /// <summary>
-        /// скорость вращения игрока
-        /// </summary>
-        public float RotationSpeed; 
+
+        public string PlayerCollectAnimLabel = "Collecting";
 
         // анимация
         public string PlayerWalkAnimLabel = "Walking";
-        public string PlayerCollectAnimLabel = "Collecting";
+
+        /// <summary>
+        ///     скорость вращения игрока
+        /// </summary>
+        public float RotationSpeed;
     }
 }

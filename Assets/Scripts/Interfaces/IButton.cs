@@ -3,10 +3,10 @@
 namespace Assets.Scripts.Interfaces
 {
     /// <summary>
-    /// Интерфейс кнопки.
+    ///     Интерфейс кнопки.
     /// </summary>
-    public interface IButton : IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
+    public interface IButton : IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler,
+        IPointerDownHandler
     {
-
     }
 }

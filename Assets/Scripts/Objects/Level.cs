@@ -3,10 +3,9 @@
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Уровень ресурса.
+    ///     Уровень ресурса.
     /// </summary>
     public class Level : MonoBehaviour
     {
-        
     }
 }

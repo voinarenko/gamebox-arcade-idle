@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts.UI.Screens
 {
     /// <summary>
-    /// Экран.
+    ///     Экран.
     /// </summary>
     public class Screen : MonoBehaviour
     {
@@ -18,11 +18,17 @@ namespace Assets.Scripts.UI.Screens
             Game.OverUi = true;
         }
 
-        protected void OnDisable() => Game.OverUi = false;
+        protected void OnDisable()
+        {
+            if (Game != null) Game.OverUi = false;
+        }
 
         /// <summary>
-        /// Метод плавного закрытия окна
+        ///     Метод плавного закрытия окна
         /// </summary>
-        public void FadeOut() => transform.DOScale(Vector3.zero, Ui.Settings.ScreenCloseTime).OnComplete(() => gameObject.SetActive(false));
+        public void FadeOut()
+        {
+            transform.DOScale(Vector3.zero, Ui.Settings.ScreenCloseTime).OnComplete(() => gameObject.SetActive(false));
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Собираемый камень.
+    ///     Собираемый камень.
     /// </summary>
     public class CollectableRock : Collectable
     {
@@ -43,12 +43,17 @@ namespace Assets.Scripts.Objects
         }
 
         /// <summary>
-        /// Метод добычи камня
+        ///     Метод добычи камня
         /// </summary>
         private void Mine()
         {
             if (Game.WaitForClick) return;
-            if (!Game.Pick) return;
+            if (!Game.Pick)
+            {
+                Game.PickRequiredScreen.gameObject.SetActive(true);
+                return;
+            }
+
             Collect();
             var collectAmount = Game.GetComponent<Inventory>().GetAmount(1);
             Game.AddStone(collectAmount);

@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.UI
 {
-    public class Ui :MonoBehaviour
+    public class Ui : MonoBehaviour
     {
         private const string UiSettingsPath = "ScriptableObjects/UISettings"; // файл настроек интерфейса
 

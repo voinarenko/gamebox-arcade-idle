@@ -3,13 +3,12 @@
 namespace Assets.Scripts.Common
 {
     /// <summary>
-    /// Отслеживание положения мыши
+    ///     Отслеживание положения мыши
     /// </summary>
     public class MouseTracking : MonoBehaviour
     {
-        private Game Game => GetComponent<Game>();
-
         private Plane _ground = new(Vector3.up, 0); // плоскость для получения координат
+        private Game Game => GetComponent<Game>();
 
         private void Update()
         {

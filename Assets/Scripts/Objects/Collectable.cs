@@ -5,14 +5,14 @@ using UnityEngine;
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Собираемый ресурс.
+    ///     Собираемый ресурс.
     /// </summary>
     public abstract class Collectable : Interactive
     {
+        private int _currentLevelIndex; // индекс текущего уровня
+        private Level[] _levels; // массив изображений уровня заполненности
         private float _timer; // таймер
         protected float RestoreTime; // время восстановления
-        private Level[] _levels; // массив изображений уровня заполненности
-        private int _currentLevelIndex; // индекс текущего уровня
         public string TreeTag { get; private set; } // метка дерева
         public string RockTag { get; private set; } // метка камня
 
@@ -47,33 +47,34 @@ namespace Assets.Scripts.Objects
         }
 
         /// <summary>
-        /// Метод загрузки уровней
+        ///     Метод загрузки уровней
         /// </summary>
         private void LoadLevels()
         {
-            var levels = GetComponentsInChildren<Level>(includeInactive:true);
+            var levels = GetComponentsInChildren<Level>(true);
             _levels = new Level[levels.Length];
             for (var i = 0; i < _levels.Length; i++)
-            {
                 foreach (var l in levels.ToList().Where(l => int.Parse(levels[i].name[4..]) == i))
                     _levels[i] = levels[i];
-            }
             _currentLevelIndex = _levels.Length - 1;
         }
 
         /// <summary>
-        /// Метод активации текущего уровня
+        ///     Метод активации текущего уровня
         /// </summary>
         /// <param name="value">значение</param>
-        private void ActivateLevel(bool value) => _levels[_currentLevelIndex].gameObject.SetActive(value);
+        private void ActivateLevel(bool value)
+        {
+            _levels[_currentLevelIndex].gameObject.SetActive(value);
+        }
 
         /// <summary>
-        /// Метод сбора ресурса
+        ///     Метод сбора ресурса
         /// </summary>
         protected void Collect()
         {
             _levels[_currentLevelIndex].gameObject.GetComponent<Renderer>().material.color = Color.white;
-           ActivateLevel(false);
+            ActivateLevel(false);
             _currentLevelIndex--;
             if (_currentLevelIndex >= 0) ActivateLevel(true);
             GetComponentInChildren<Target>().Refresh();
@@ -81,7 +82,7 @@ namespace Assets.Scripts.Objects
         }
 
         /// <summary>
-        /// Метод восстановления ресурса
+        ///     Метод восстановления ресурса
         /// </summary>
         private void Restore()
         {
@@ -93,14 +94,20 @@ namespace Assets.Scripts.Objects
         }
 
         /// <summary>
-        /// Метод очистки нахождения у дерева
+        ///     Метод очистки нахождения у дерева
         /// </summary>
-        public void ClearNearTree() => Game.NearTree = false;
+        public void ClearNearTree()
+        {
+            Game.NearTree = false;
+        }
 
 
         /// <summary>
-        /// Метод очистки нахождения у камня
+        ///     Метод очистки нахождения у камня
         /// </summary>
-        public void ClearNearRock() => Game.NearRock = false;
+        public void ClearNearRock()
+        {
+            Game.NearRock = false;
+        }
     }
 }

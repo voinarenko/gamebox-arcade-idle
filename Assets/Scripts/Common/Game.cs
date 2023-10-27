@@ -1,20 +1,14 @@
 ﻿using Assets.Scripts.Objects;
-using Assets.Scripts.UI;
 using Assets.Scripts.UI.Screens;
 using UnityEngine;
 
 namespace Assets.Scripts.Common
 {
     /// <summary>
-    /// Игра.
+    ///     Игра.
     /// </summary>
     public class Game : MonoBehaviour
     {
-        private Player.Player _player;
-        private Inventory Inventory => GetComponent<Inventory>();
-        public static TradeSettings TradeSettings => FindAnyObjectByType<Interactive>().TradeSettings;
-        public static TradeScreen TradeScreen => FindAnyObjectByType<TradeScreen>(FindObjectsInactive.Include);
-
         // пути к файлам
         private const string GroundPrefabPath = "Prefabs/Ground"; // путь к файлу земли
         private const string PlayerPrefabPath = "Prefabs/Player"; // путь к файлу игрока
@@ -31,16 +25,24 @@ namespace Assets.Scripts.Common
         public const string RockTag = "Rock"; // метка камня
 
         private Transform _objects; // объекты
+        private Player.Player _player;
+        public bool MoveToCollect; // { get; internal set; } // движение к ресурсу
+        public bool MoveToTrade; // { get; internal set; } // движение к магазину
+        public bool NearRock; // { get; internal set; } // игрок возле камня
+        public bool NearTree; // { get; internal set; } // игрок возле дерева
+        public bool WaitForClick; // { get; internal set; } // ожидание нажатия кнопки мыши
+        public Inventory Inventory => GetComponent<Inventory>();
+        public static TradeSettings TradeSettings => FindAnyObjectByType<Interactive>().TradeSettings;
+        public static TradeScreen TradeScreen => FindAnyObjectByType<TradeScreen>(FindObjectsInactive.Include);
+
+        public static PickRequiredScreen PickRequiredScreen =>
+            FindAnyObjectByType<PickRequiredScreen>(FindObjectsInactive.Include);
 
         public Vector3 MousePosition { get; internal set; } // координаты мыши на плоскости
-        public bool MoveToCollect;// { get; internal set; } // движение к ресурсу
-        public bool MoveToTrade;// { get; internal set; } // движение к магазину
         public Vector3 MoveToCollectPosition { get; internal set; } // координаты ресурса
         public Vector3 MoveToTradePosition { get; internal set; } // координаты магазина
-        public bool WaitForClick;// { get; internal set; } // ожидание нажатия кнопки мыши
-        public bool NearTree;// { get; internal set; } // игрок возле дерева
-        public bool NearRock;// { get; internal set; } // игрок возле камня
         public bool OverUi { get; set; } // мышь над интерфейсом
+        public Tooltip Tooltip => FindAnyObjectByType<Tooltip>(FindObjectsInactive.Include);
 
         //инструменты
         public bool Axe { get; set; } // топор
@@ -48,6 +50,8 @@ namespace Assets.Scripts.Common
 
         private void Start()
         {
+            FindAnyObjectByType<ManualScreen>(FindObjectsInactive.Include).gameObject.SetActive(true);
+
             #region Загрузка и инициализация объектов
 
             var groundPrefab = Resources.Load(GroundPrefabPath);
@@ -73,54 +77,77 @@ namespace Assets.Scripts.Common
             Axe = Inventory.Axe;
             Pick = Inventory.Pick;
         }
-        
+
         /// <summary>
-        /// Метод движения игрока
+        ///     Метод движения игрока
         /// </summary>
         /// <param name="position">координаты цели</param>
-        public void Move(Vector3 position) => _player.Move(position);
+        public void Move(Vector3 position)
+        {
+            _player.Move(position);
+        }
 
         /// <summary>
-        /// Метод остановки движения игрока
+        ///     Метод остановки движения игрока
         /// </summary>
         /// <param name="other">игрок</param>
-        public static void StopMoving(Player.Player other) => other.StopMoving();
+        public static void StopMoving(Player.Player other)
+        {
+            other.StopMoving();
+        }
 
         /// <summary>
-        /// Метод добавления дерева в инвентарь
+        ///     Метод добавления дерева в инвентарь
         /// </summary>
         /// <param name="amount">количество дерева</param>
-        public void AddMoney(int amount) => Inventory.AddMoney(amount);
+        public void AddMoney(int amount)
+        {
+            Inventory.AddMoney(amount);
+        }
 
         /// <summary>
-        /// Метод вычитания денег из инвентаря
+        ///     Метод вычитания денег из инвентаря
         /// </summary>
         /// <param name="amount">количество денег</param>
-        public void RemoveMoney(int amount) => Inventory.RemoveMoney(amount);
+        public void RemoveMoney(int amount)
+        {
+            Inventory.RemoveMoney(amount);
+        }
 
         /// <summary>
-        /// Метод добавления дерева в инвентарь
+        ///     Метод добавления дерева в инвентарь
         /// </summary>
         /// <param name="amount">количество дерева</param>
-        public void AddWood(int amount) => Inventory.AddWood(amount);
+        public void AddWood(int amount)
+        {
+            Inventory.AddWood(amount);
+        }
 
         /// <summary>
-        /// Метод вычитания дерева из инвентаря
+        ///     Метод вычитания дерева из инвентаря
         /// </summary>
         /// <param name="amount">количество дерева</param>
-        public void RemoveWood(int amount) => Inventory.RemoveWood(amount);
-        
-        /// <summary>
-        /// Метод добавления камня в инвентарь
-        /// </summary>
-        /// <param name="amount">количество камня</param>
-        public void AddStone(int amount) => Inventory.AddStone(amount);
+        public void RemoveWood(int amount)
+        {
+            Inventory.RemoveWood(amount);
+        }
 
         /// <summary>
-        /// Метод вычитания камня из инвентаря
+        ///     Метод добавления камня в инвентарь
         /// </summary>
         /// <param name="amount">количество камня</param>
-        public void RemoveStone(int amount) => Inventory.RemoveStone(amount);
+        public void AddStone(int amount)
+        {
+            Inventory.AddStone(amount);
+        }
 
+        /// <summary>
+        ///     Метод вычитания камня из инвентаря
+        /// </summary>
+        /// <param name="amount">количество камня</param>
+        public void RemoveStone(int amount)
+        {
+            Inventory.RemoveStone(amount);
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace Assets.Scripts.Player
 {
     /// <summary>
-    /// Игрок.
+    ///     Игрок.
     /// </summary>
     public class Player : MonoBehaviour
     {
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Player
         }
 
         /// <summary>
-        /// Метод движения игрока
+        ///     Метод движения игрока
         /// </summary>
         /// <param name="position">цель</param>
         public void Move(Vector3 position)
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Player
         }
 
         /// <summary>
-        /// Метод остановки движения игрока
+        ///     Метод остановки движения игрока
         /// </summary>
         public void StopMoving()
         {
@@ -43,9 +43,12 @@ namespace Assets.Scripts.Player
         }
 
         /// <summary>
-        /// Метод переключения анимации движения игрока
+        ///     Метод переключения анимации движения игрока
         /// </summary>
         /// <param name="value"></param>
-        public void SwitchMoveAnimation(bool value) => Animator.SetBool(Settings.PlayerWalkAnimLabel, value);
+        public void SwitchMoveAnimation(bool value)
+        {
+            Animator.SetBool(Settings.PlayerWalkAnimLabel, value);
+        }
     }
 }

@@ -4,16 +4,22 @@ using UnityEngine;
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Магазин.
+    ///     Магазин.
     /// </summary>
     public class Shop : Interactive
     {
-        protected override void OnTriggerEnter(Collider other) => OpenShopScreen(other);
+        protected override void OnTriggerEnter(Collider other)
+        {
+            OpenShopScreen(other);
+        }
 
-        protected override void OnTriggerStay(Collider other) => OpenShopScreen(other);
+        protected override void OnTriggerStay(Collider other)
+        {
+            OpenShopScreen(other);
+        }
 
         /// <summary>
-        /// Метод открытия окна магазина при подходе игрока
+        ///     Метод открытия окна магазина при подходе игрока
         /// </summary>
         /// <param name="other">игрок</param>
         private void OpenShopScreen(Collider other)

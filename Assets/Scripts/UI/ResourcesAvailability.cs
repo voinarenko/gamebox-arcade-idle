@@ -6,16 +6,16 @@ using UnityEngine;
 namespace Assets.Scripts.UI
 {
     /// <summary>
-    /// Отображение на экране наличных ресурсов
+    ///     Отображение на экране наличных ресурсов
     /// </summary>
     public class ResourcesAvailability : MonoBehaviour
     {
+        private TMP_Text _axeLevel; // уровень топора
         private Inventory _inventory;
         private TMP_Text _moneyText; // количество денег
-        private TMP_Text _woodText; // количество дерева
-        private TMP_Text _stoneText; // количество камня
-        private TMP_Text _axeLevel; // уровень топора
         private TMP_Text _pickLevel; // уровень кирки
+        private TMP_Text _stoneText; // количество камня
+        private TMP_Text _woodText; // количество дерева
 
         private void Start()
         {
@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI
         }
 
         /// <summary>
-        /// Метод обновления отображения данных на экране
+        ///     Метод обновления отображения данных на экране
         /// </summary>
         public void UpdateView()
         {

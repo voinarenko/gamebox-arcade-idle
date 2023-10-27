@@ -3,7 +3,7 @@
 namespace Assets.Scripts.Common
 {
     /// <summary>
-    /// Обработка нажатия мыши.
+    ///     Обработка нажатия мыши.
     /// </summary>
     public class ClickProcessing : MonoBehaviour
     {
@@ -26,13 +26,15 @@ namespace Assets.Scripts.Common
                 Game.Move(hitInfo.transform.position);
             }
 
-            if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearRock) || (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearTree))
+            if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearRock) ||
+                (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearTree))
             {
                 Game.MoveToCollect = true;
                 Game.MoveToCollectPosition = hitInfo.transform.position;
                 Game.Move(hitInfo.transform.position);
             }
-            else if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearTree) || (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearRock))
+            else if ((hitInfo.transform.CompareTag(Game.TreeTag) && Game.NearTree) ||
+                     (hitInfo.transform.CompareTag(Game.RockTag) && Game.NearRock))
             {
                 Game.WaitForClick = false;
                 Game.MoveToCollect = true;

@@ -7,10 +7,12 @@ namespace Assets.Scripts.UI.Buttons
 {
     public class Button : MonoBehaviour, IButton
     {
+        [SerializeField] private readonly Sprite[] _sprites = new Sprite[3]; // спрайты состояний кнопки
         private Image ButtonImage => GetComponent<Image>(); // компонент изображения
-        [SerializeField] private Sprite[] _sprites = new Sprite[3]; // спрайты состояний кнопки
 
-        public virtual void OnPointerClick(PointerEventData eventData) { }
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
+        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {

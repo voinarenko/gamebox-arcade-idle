@@ -3,13 +3,16 @@
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Обход проблемы отсутствия срабатывания выхода из коллайдера при выключении объекта.
+    ///     Обход проблемы отсутствия срабатывания выхода из коллайдера при выключении объекта.
     /// </summary>
     public class TriggerExitFix : MonoBehaviour
     {
         private Collectable _collectable;
 
-        private void Start() => _collectable = GetComponentInParent<Collectable>();
+        private void Start()
+        {
+            _collectable = GetComponentInParent<Collectable>();
+        }
 
         private void OnDisable()
         {

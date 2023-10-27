@@ -7,23 +7,23 @@ using Screen = Assets.Scripts.UI.Screens.Screen;
 namespace Assets.Scripts.UI
 {
     /// <summary>
-    /// Предмет инвентаря.
+    ///     Предмет инвентаря.
     /// </summary>
     public class Item : MonoBehaviour
     {
-        private Game Game => GetComponentInParent<Screen>(includeInactive:true).Game;
-        private Inventory Inventory => Game.GetComponent<Inventory>();
-
-        public bool Resource { get; private set; } // является ли предмет ресурсом
         [SerializeField] private Image _buttonImage; // изображение иконки
-        private TMP_Text ButtonText => GetComponentInChildren<TMP_Text>(); // количество ресурса
         [SerializeField] private Sprite[] _resourceIcons; // массив иконок ресурсов
         [SerializeField] private Sprite[] _toolIcons; // массив иконок инструментов
+        private Game Game => GetComponentInParent<Screen>(true).Game;
+        public Inventory Inventory => Game.GetComponent<Inventory>();
+
+        public bool Resource { get; private set; } // является ли предмет ресурсом
+        private TMP_Text ButtonText => GetComponentInChildren<TMP_Text>(); // количество ресурса
         public int Id { get; private set; } // индекс
         public int Value { get; private set; } // значение
 
         /// <summary>
-        /// Метод инициализации инструмента
+        ///     Метод инициализации инструмента
         /// </summary>
         /// <param name="id">индекс изображения</param>
         public void Init(int id)
@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI
         }
 
         /// <summary>
-        /// Метод инициализации ресурса
+        ///     Метод инициализации ресурса
         /// </summary>
         /// <param name="resourceId">индекс изображения</param>
         /// <param name="amount">количество ресурса</param>

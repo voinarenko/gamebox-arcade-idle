@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts.Objects
 {
     /// <summary>
-    /// Собираемое дерево.
+    ///     Собираемое дерево.
     /// </summary>
     public class CollectableTree : Collectable
     {
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Objects
         }
 
         /// <summary>
-        /// Метод рубки дерева
+        ///     Метод рубки дерева
         /// </summary>
         private void Chop()
         {
