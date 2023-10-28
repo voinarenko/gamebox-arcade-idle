@@ -48,7 +48,7 @@ namespace Assets.Scripts.Objects
         private void Mine()
         {
             if (Game.WaitForClick) return;
-            if (!Game.Pick)
+            if (!Game.Inventory.Pick)
             {
                 Game.PickRequiredScreen.gameObject.SetActive(true);
                 return;

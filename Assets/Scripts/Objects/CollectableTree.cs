@@ -48,7 +48,7 @@ namespace Assets.Scripts.Objects
         private void Chop()
         {
             if (Game.WaitForClick) return;
-            if (!Game.Axe) return;
+            if (!Game.Inventory.Axe) return;
             Collect();
             var collectAmount = Game.GetComponent<Inventory>().GetAmount(0);
             Game.AddWood(collectAmount);

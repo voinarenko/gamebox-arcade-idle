@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Common;
+using Assets.Scripts.UI.Buttons;
 using Assets.Scripts.UI.Screens;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,15 +13,15 @@ namespace Assets.Scripts.UI
     {
         private static Tooltip Tooltip => FindAnyObjectByType<Tooltip>(FindObjectsInactive.Include);
         private Inventory Inventory => GetComponent<Item>().Inventory;
+        private ActionButton ActionButton => GetComponent<ActionButton>();
 
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             Tooltip.gameObject.SetActive(true);
             var item = eventData.pointerEnter.GetComponent<Item>();
-            Tooltip.Name.text = GetData(item.Resource, item.Id, item.Value)[0];
-            Tooltip.Info.text = GetData(item.Resource, item.Id, item.Value)[1];
-            Tooltip.Data.text = GetData(item.Resource, item.Id, item.Value)[2];
+            UpdateData(item);
+            ActionButton.TooltipEnabler = this;
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -31,6 +32,20 @@ namespace Assets.Scripts.UI
             Tooltip.gameObject.SetActive(false);
         }
 
+        public void UpdateData(Item item)
+        {
+            Tooltip.Name.text = GetData(item.Resource, item.Id, item.Value)[0];
+            Tooltip.Info.text = GetData(item.Resource, item.Id, item.Value)[1];
+            Tooltip.Data.text = GetData(item.Resource, item.Id, item.Value)[2];
+        }
+
+        /// <summary>
+        /// Метод получения данных для отображения в подсказке
+        /// </summary>
+        /// <param name="resource">ресурс ли объект</param>
+        /// <param name="id">индекс</param>
+        /// <param name="value">значение</param>
+        /// <returns></returns>
         private string[] GetData(bool resource, int id, int value)
         {
             var result = new string[3];

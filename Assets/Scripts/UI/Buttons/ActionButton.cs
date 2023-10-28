@@ -1,18 +1,27 @@
 ﻿using Assets.Scripts.Common;
 using Assets.Scripts.Objects;
-using Assets.Scripts.UI.Screens;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using Screen = Assets.Scripts.UI.Screens.Screen;
 
 namespace Assets.Scripts.UI.Buttons
 {
     /// <summary>
-    ///     Кнопка продажи.
+    ///     Кнопка операции с предметом.
     /// </summary>
     public class ActionButton : Button
     {
         private Game Game => GetComponentInParent<Screen>().Game;
         private static TradeSettings Settings => Game.TradeSettings;
         private Inventory Inventory => Game.GetComponent<Inventory>();
+        public TooltipEnabler TooltipEnabler { private get; set; }
+
+        private void Start()
+        {
+            Sprites[0] = Resources.Load<Sprite>("Images/button_150_down");
+            Sprites[1] = Resources.Load<Sprite>("Images/button_150");
+            Sprites[2] = Resources.Load<Sprite>("Images/button_150_hover");
+        }
 
         public override void OnPointerClick(PointerEventData eventData)
         {
@@ -54,8 +63,10 @@ namespace Assets.Scripts.UI.Buttons
                 }
 
                 item.Init(item.Id);
-                Inventory.SaveData();
+                Inventory.SaveTools();
             }
+
+            TooltipEnabler.UpdateData(item);
         }
     }
 }

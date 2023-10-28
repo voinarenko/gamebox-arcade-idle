@@ -21,7 +21,9 @@ namespace Assets.Scripts.UI.Screens
 
         private void Update()
         {
-            transform.position = new Vector2(Input.mousePosition.x + OffsetX, Input.mousePosition.y - OffsetY);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform.parent, Input.mousePosition, null,
+                out var localPoint);
+            transform.localPosition = new Vector2(localPoint.x + OffsetX, localPoint.y - OffsetY);
         }
     }
 }

@@ -44,15 +44,9 @@ namespace Assets.Scripts.Common
         public bool OverUi { get; set; } // мышь над интерфейсом
         public Tooltip Tooltip => FindAnyObjectByType<Tooltip>(FindObjectsInactive.Include);
 
-        //инструменты
-        public bool Axe { get; set; } // топор
-        public bool Pick { get; private set; } // кирка
-
         private void Start()
         {
             FindAnyObjectByType<ManualScreen>(FindObjectsInactive.Include).gameObject.SetActive(true);
-
-            #region Загрузка и инициализация объектов
 
             var groundPrefab = Resources.Load(GroundPrefabPath);
             Instantiate(groundPrefab, transform);
@@ -71,11 +65,6 @@ namespace Assets.Scripts.Common
 
             var rockPrefab = Resources.Load(RockPrefabPath);
             Instantiate(rockPrefab, _objects);
-
-            #endregion
-
-            Axe = Inventory.Axe;
-            Pick = Inventory.Pick;
         }
 
         /// <summary>

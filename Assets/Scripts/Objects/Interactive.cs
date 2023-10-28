@@ -12,7 +12,7 @@ namespace Assets.Scripts.Objects
             InteractiveSettingsPath = "ScriptableObjects/InteractiveSettings"; // файл настроек объектов
 
         private const string TradeSettingsPath = "ScriptableObjects/TradeSettings"; // файл настроек торговли
-        public Game Game;
+        public Game Game { get; private set; }
         public InteractiveSettings Settings => Resources.Load<InteractiveSettings>(InteractiveSettingsPath);
         public TradeSettings TradeSettings => Resources.Load<TradeSettings>(TradeSettingsPath);
 

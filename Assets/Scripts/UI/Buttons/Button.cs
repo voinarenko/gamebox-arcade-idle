@@ -7,8 +7,15 @@ namespace Assets.Scripts.UI.Buttons
 {
     public class Button : MonoBehaviour, IButton
     {
-        [SerializeField] private readonly Sprite[] _sprites = new Sprite[3]; // спрайты состояний кнопки
+        protected readonly Sprite[] Sprites = new Sprite[3]; // спрайты состояний кнопки
         private Image ButtonImage => GetComponent<Image>(); // компонент изображения
+
+        private void Start()
+        {
+            Sprites[0] = Resources.Load<Sprite>("Images/button_50_down");
+            Sprites[1] = Resources.Load<Sprite>("Images/button_50");
+            Sprites[2] = Resources.Load<Sprite>("Images/button_50_hover");
+        }
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
@@ -16,26 +23,26 @@ namespace Assets.Scripts.UI.Buttons
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_sprites[2] == null) return;
-            ButtonImage.sprite = _sprites?[2];
+            if (Sprites[2] == null) return;
+            ButtonImage.sprite = Sprites?[2];
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (_sprites[1] == null) return;
-            ButtonImage.sprite = _sprites?[1];
+            if (Sprites[1] == null) return;
+            ButtonImage.sprite = Sprites?[1];
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (_sprites[2] == null) return;
-            ButtonImage.sprite = _sprites?[2];
+            if (Sprites[2] == null) return;
+            ButtonImage.sprite = Sprites?[2];
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (_sprites[0] == null) return;
-            ButtonImage.sprite = _sprites?[0];
+            if (Sprites[0] == null) return;
+            ButtonImage.sprite = Sprites?[0];
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Assets.Scripts.Common
     /// </summary>
     public class Inventory : MonoBehaviour
     {
-        // экран магазина
         private const string ItemPrefabPath = "Prefabs/Item"; // путь к объекту предмета инвентаря
 
         // метки сохранения
@@ -23,7 +22,7 @@ namespace Assets.Scripts.Common
         private const string PickLevelLabel = "PickLevel"; // ключ для сохранения кирки
         private GameObject _itemPrefab; // объект предмета инвентаря
         public static ResourcesAvailability ResourcesDisplay => FindAnyObjectByType<ResourcesAvailability>();
-        private InteractiveSettings CollectSettings => FindAnyObjectByType<Interactive>().Settings;
+        private static InteractiveSettings CollectSettings => FindAnyObjectByType<Interactive>().Settings;
 
         private static Transform SellParent =>
             FindAnyObjectByType<SellContent>(FindObjectsInactive.Include).transform; // место генерации ресурсов
@@ -45,7 +44,6 @@ namespace Assets.Scripts.Common
         private void Start()
         {
             Axe = true;
-            GetComponent<Game>().Axe = Axe;
             _itemPrefab = (GameObject)Resources.Load(ItemPrefabPath);
         }
 
@@ -160,7 +158,7 @@ namespace Assets.Scripts.Common
         /// <summary>
         ///     Метод сохранения данных
         /// </summary>
-        public void SaveData()
+        public void SaveTools()
         {
             PlayerPrefs.SetInt(AxeLevelLabel, AxeLevel);
             PlayerPrefs.SetInt(PickObtainedLabel, Pick ? 1 : 0);
@@ -196,8 +194,9 @@ namespace Assets.Scripts.Common
         /// <summary>
         ///     Метод сохранения ресурсов
         /// </summary>
-        private static void SaveResources()
+        private void SaveResources()
         {
+            PlayerPrefs.SetInt(MoneyLabel, MoneyAmount);
             var items = FindResources();
             var quantity = items.Count;
             PlayerPrefs.SetInt("ResourcesQuantity", quantity);
@@ -262,16 +261,23 @@ namespace Assets.Scripts.Common
         /// <returns>количество</returns>
         public int GetAmount(int id)
         {
-            var result = id switch
+            int result;
+            switch (id)
             {
-                0 => Convert.ToInt32(CollectSettings.WoodCollectAmount + CollectSettings.WoodCollectAmount *
-                    CollectSettings.WoodCollectCoefficient *
-                    (AxeLevel - 1)),
-                1 => Convert.ToInt32(CollectSettings.StoneCollectAmount + CollectSettings.StoneCollectAmount *
-                    CollectSettings.StoneCollectCoefficient *
-                    (PickLevel - 1)),
-                _ => 0
-            };
+                case 0:
+                    result = Convert.ToInt32(CollectSettings.WoodCollectAmount + CollectSettings.WoodCollectAmount *
+                        CollectSettings.WoodCollectCoefficient * (AxeLevel - 1));
+                    if (result < CollectSettings.WoodCollectAmount) result = CollectSettings.WoodCollectAmount;
+                    break;
+                case 1:
+                    result = Convert.ToInt32(CollectSettings.StoneCollectAmount + CollectSettings.StoneCollectAmount *
+                        CollectSettings.StoneCollectCoefficient * (PickLevel - 1));
+                    if (result < CollectSettings.StoneCollectAmount) result = CollectSettings.StoneCollectAmount;
+                    break;
+                default:
+                    result = 0;
+                    break;
+            }
 
             return result;
         }
